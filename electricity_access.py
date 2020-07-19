@@ -1,11 +1,13 @@
 import csv
 import pygal
 from pycountry_convert import country_alpha2_to_continent_code
+from pygal.style import RotateStyle, LightColorizedStyle
+
 from country_codes import get_country_code
 
 filename = "electricity_access.csv"
 all_countries = {}
-input_year = '2005'
+input_year = '2000'
 
 
 def get_continent(country_code):
@@ -52,7 +54,8 @@ with open(filename, encoding='utf-8-sig') as f:
         else:
             unsorted[key] = value
 
-wm = pygal.maps.world.World()
+wm_style = RotateStyle('#336699', base_style=LightColorizedStyle)
+wm = pygal.maps.world.World(style=wm_style)
 wm.title = "Access to electricity (% of population), year " + input_year
 wm.add('Africa', africa)
 wm.add('Europe', europe)
